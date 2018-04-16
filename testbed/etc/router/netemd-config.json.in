@@ -1,0 +1,16 @@
+{
+    "poll_interval_ms": 250,
+    "http_port": 8080,
+    "interfaces": [
+        {
+            "tag": "client-domain-downlink",
+            "ipaddr": "@CLIENT_DOMAIN_ROUTER_ADDR@",
+            "ping_host": "@CLIENT_DOMAIN_CLIENT_ADDR@"
+        },
+        {
+            "tag": "server-domain-uplink",
+            "ipaddr": "@SERVER_DOMAIN_ROUTER_ADDR@",
+            "ping_host": "@SERVER_DOMAIN_SERVER_ADDR@"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "poll_interval_ms": 250,
+    "http_port": 8080,
+    "interfaces": [
+        {
+            "tag": "client-domain-uplink",
+            "ipaddr": "@CLIENT_DOMAIN_CLIENT_ADDR@",
+    	    "ping_host": "@CLIENT_DOMAIN_ROUTER_ADDR@"
+        }
+    ]
+}

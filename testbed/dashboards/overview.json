@@ -1,0 +1,782 @@
+{
+  "dashboards": [
+    {
+      "id": 1,
+      "cells": [
+        {
+          "i": "9a3323e2-e62e-4e7f-a045-bd232e868ecf",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 5,
+          "name": "End to end delay breakdown",
+          "queries": [
+            {
+              "query": "SELECT mean(\"client-domain-downlink.delay.forward\") AS \"mean_client-domain-downlink.delay.forward\", mean(\"client-domain-uplink.delay.forward\") AS \"mean_client-domain-uplink.delay.forward\", mean(\"server-domain-downlink.delay.forward\") AS \"mean_server-domain-downlink.delay.forward\", mean(\"server-domain-uplink.delay.forward\") AS \"mean_server-domain-uplink.delay.forward\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime: GROUP BY :interval:",
+              "queryConfig": {
+                "database": "telegraf",
+                "measurement": "httpjson_netem",
+                "retentionPolicy": "autogen",
+                "fields": [
+                  {
+                    "field": "client-domain-downlink.delay.forward",
+                    "funcs": [
+                      "mean"
+                    ]
+                  },
+                  {
+                    "field": "client-domain-uplink.delay.forward",
+                    "funcs": [
+                      "mean"
+                    ]
+                  },
+                  {
+                    "field": "server-domain-downlink.delay.forward",
+                    "funcs": [
+                      "mean"
+                    ]
+                  },
+                  {
+                    "field": "server-domain-uplink.delay.forward",
+                    "funcs": [
+                      "mean"
+                    ]
+                  }
+                ],
+                "tags": {},
+                "groupBy": {
+                  "time": "auto",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": null,
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-stacked",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/9a3323e2-e62e-4e7f-a045-bd232e868ecf"
+          }
+        },
+        {
+          "i": "31d9a34b-2904-483d-90e9-f1d0f674dcf7",
+          "x": 8,
+          "y": 17,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain packet reordering (downlink)",
+          "queries": [
+            {
+              "query": "SELECT (\"client-domain-downlink.packet.reordered\" / \"client-domain-downlink.packet.count\" * 100) AS \"client-domain-downlink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"client-domain-downlink.packet.reordered\" / \"client-domain-downlink.packet.count\" * 100) AS \"client-domain-downlink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/31d9a34b-2904-483d-90e9-f1d0f674dcf7"
+          }
+        },
+        {
+          "i": "1dbeb3b7-5acb-4b10-97c2-567caf5fdc84",
+          "x": 8,
+          "y": 13,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain packet reordering (uplink)",
+          "queries": [
+            {
+              "query": "SELECT (\"client-domain-uplink.packet.reordered\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"client-domain-uplink.packet.reordered\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/1dbeb3b7-5acb-4b10-97c2-567caf5fdc84"
+          }
+        },
+        {
+          "i": "d3585902-3a39-45be-a223-cf050a7c03d9",
+          "x": 8,
+          "y": 9,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain packet reordering (downlink)",
+          "queries": [
+            {
+              "query": "SELECT (\"server-domain-downlink.packet.reordered\" / \"server-domain-downlink.packet.count\" * 100) AS \"server-domain-downlink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"server-domain-downlink.packet.reordered\" / \"server-domain-downlink.packet.count\" * 100) AS \"server-domain-downlink.reorder-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/d3585902-3a39-45be-a223-cf050a7c03d9"
+          }
+        },
+        {
+          "i": "4c825920-ba46-460e-aefd-efee80fa80d9",
+          "x": 8,
+          "y": 5,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain packet reordering (uplink)",
+          "queries": [
+            {
+              "query": "SELECT (\"server-domain-uplink.packet.reordered\" / \"server-domain-uplink.packet.count\" * 100) AS \"server-domain-uplink.reorder_percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"server-domain-uplink.packet.reordered\" / \"server-domain-uplink.packet.count\" * 100) AS \"server-domain-uplink.reorder_percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/4c825920-ba46-460e-aefd-efee80fa80d9"
+          }
+        },
+        {
+          "i": "12dcbe91-948f-4ff0-940d-51fa638d3749",
+          "x": 4,
+          "y": 13,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain packet drop (uplink)",
+          "queries": [
+            {
+              "query": "SELECT (\"client-domain-uplink.packet.dropped\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"client-domain-uplink.packet.dropped\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/12dcbe91-948f-4ff0-940d-51fa638d3749"
+          }
+        },
+        {
+          "i": "7ecca3dc-30ff-4cda-bbe7-32103cef388b",
+          "x": 4,
+          "y": 17,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain packet drop (downlink)",
+          "queries": [
+            {
+              "query": "SELECT (\"client-domain-downlink.packet.dropped\" / \"client-domain-downlink.packet.count\" * 100) AS \"client-domain-downlink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"client-domain-downlink.packet.dropped\" / \"client-domain-downlink.packet.count\" * 100) AS \"client-domain-downlink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/7ecca3dc-30ff-4cda-bbe7-32103cef388b"
+          }
+        },
+        {
+          "i": "8c3be8a8-abd1-4e46-a757-a4c26cc49fad",
+          "x": 4,
+          "y": 9,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain packet drop (downlink)",
+          "queries": [
+            {
+              "query": "SELECT (\"server-domain-downlink.packet.dropped\" / \"server-domain-downlink.packet.count\" * 100) AS \"server-domain-downlink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"server-domain-downlink.packet.dropped\" / \"server-domain-downlink.packet.count\" * 100) AS \"server-domain-downlink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/8c3be8a8-abd1-4e46-a757-a4c26cc49fad"
+          }
+        },
+        {
+          "i": "cff03e4c-a377-4823-92e2-c5d882741a24",
+          "x": 4,
+          "y": 5,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain packet drop (uplink)",
+          "queries": [
+            {
+              "query": "SELECT (\"server-domain-uplink.packet.dropped\" / \"server-domain-uplink.packet.count\" * 100) AS \"server-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"server-domain-uplink.packet.dropped\" / \"server-domain-uplink.packet.count\" * 100) AS \"server-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line-plus-single-stat",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/cff03e4c-a377-4823-92e2-c5d882741a24"
+          }
+        },
+        {
+          "i": "01d6b15f-ee7b-49cc-9b63-60b4ec89db0c",
+          "x": 0,
+          "y": 5,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain PPS (uplink)",
+          "queries": [
+            {
+              "query": "SELECT derivative(\"server-domain-uplink.packet.count\") AS \"server-domain-uplink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT derivative(\"server-domain-uplink.packet.count\") AS \"server-domain-uplink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/01d6b15f-ee7b-49cc-9b63-60b4ec89db0c"
+          }
+        },
+        {
+          "i": "f10671bc-1398-4b2b-ac9c-36c226c47f97",
+          "x": 0,
+          "y": 9,
+          "w": 4,
+          "h": 4,
+          "name": "Server domain PPS (downlink)",
+          "queries": [
+            {
+              "query": "SELECT derivative(\"server-domain-downlink.packet.count\") AS \"server-domain-downlink.PPS\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT derivative(\"server-domain-downlink.packet.count\") AS \"server-domain-downlink.PPS\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/f10671bc-1398-4b2b-ac9c-36c226c47f97"
+          }
+        },
+        {
+          "i": "4958b89a-18f8-4759-a293-79481949ebaa",
+          "x": 0,
+          "y": 13,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain PPS (uplink)",
+          "queries": [
+            {
+              "query": "SELECT derivative(\"client-domain-uplink.packet.count\", 1s) AS \"client-domain-uplink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT derivative(\"client-domain-uplink.packet.count\", 1s) AS \"client-domain-uplink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/4958b89a-18f8-4759-a293-79481949ebaa"
+          }
+        },
+        {
+          "i": "3e60e47c-412e-4518-bfe6-4e0938a32ca2",
+          "x": 0,
+          "y": 17,
+          "w": 4,
+          "h": 4,
+          "name": "Client domain PPS (downlink)",
+          "queries": [
+            {
+              "query": "SELECT derivative(\"client-domain-downlink.packet.count\", 1s) AS \"client-domain-downlink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT derivative(\"client-domain-downlink.packet.count\", 1s) AS \"client-domain-downlink.pps\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/1/cells/3e60e47c-412e-4518-bfe6-4e0938a32ca2"
+          }
+        }
+      ],
+      "templates": [],
+      "name": "IETF 101 Hackathon - Transport Measurements",
+      "links": {
+        "self": "/chronograf/v1/dashboards/1",
+        "cells": "/chronograf/v1/dashboards/1/cells",
+        "templates": "/chronograf/v1/dashboards/1/templates"
+      }
+    }
+  ]
+}
