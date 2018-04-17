@@ -17,6 +17,7 @@ services:
       - "server:${SERVER_DOMAIN_SERVER_ADDR}"
     volumes:
       - ./etc/client:/root/share
+      - ./python:/root/python
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -39,6 +40,7 @@ services:
       - "client:${CLIENT_DOMAIN_CLIENT_ADDR}"
     volumes:
       - ./etc/server:/root/share
+      - ./python:/root/python
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -61,6 +63,7 @@ services:
       - "8083:8080"
     volumes:
       - ./etc/router:/root/share
+      - ./python:/root/python
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
