@@ -1,5 +1,7 @@
 FROM alpine_3.7-transport-measurability:latest
 
+ENV PYTHONPATH /root/python
+
 RUN apk add --no-cache \
     automake \
     bison \

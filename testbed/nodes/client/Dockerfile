@@ -1,5 +1,7 @@
 FROM alpine_3.7-transport-measurability:latest
 
+ENV PYTHONPATH /root/python
+
 # netemd is launched in the entrypoint script after network interfaces have
 # been configured
 COPY entrypoint.bash /root/
