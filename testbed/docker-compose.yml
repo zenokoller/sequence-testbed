@@ -18,6 +18,7 @@ services:
     volumes:
       - ./etc/client:/root/share
       - ./python:/root/python
+      - ./data/client:/var/log
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -41,6 +42,7 @@ services:
     volumes:
       - ./etc/server:/root/share
       - ./python:/root/python
+      - ./data/server:/var/log
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -64,6 +66,7 @@ services:
     volumes:
       - ./etc/router:/root/share
       - ./python:/root/python
+      - ./data/router:/var/log
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
