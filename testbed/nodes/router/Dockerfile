@@ -13,6 +13,7 @@ RUN apk add --no-cache \
     wget \
     zlib-dev
 
+# Install libtrace & dependencies
 WORKDIR /tmp
 
 # Install libwandio
@@ -31,13 +32,15 @@ RUN wget https://research.wand.net.nz/software/libtrace/libtrace-3.0.22.tar.bz2 
     && ./configure && make && make install
 
 
-# Install python-libtrace
+# (Finally) Install python-libtrace
 RUN git clone https://github.com/nevil-brownlee/python-libtrace.git \
     && cd python-libtrace \
     && make install-py3
 
 WORKDIR /
 
+# Other python packages
+RUN pip install aioprocessing
 
 # netemd is launched in the entrypoint script after network interfaces have
 # been configured
