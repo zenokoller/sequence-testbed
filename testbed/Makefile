@@ -10,7 +10,7 @@ down: ; docker-compose down
 
 top: ; docker-compose top
 
-dash: ; bin/upload-dashboard.bash dashboards/overview.json
+dash: ; bin/upload-dashboard.bash dashboards/loss.json
 
 # Dynamically create each sh-<node> rule
 define interactive_shell_template

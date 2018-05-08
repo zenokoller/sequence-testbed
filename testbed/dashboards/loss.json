@@ -1,0 +1,130 @@
+{
+  "dashboards": [
+    {
+      "id": 2,
+      "cells": [
+        {
+          "i": "1b24e9cc-56cd-470b-aa27-9d9b646f7929",
+          "x": 0,
+          "y": 4,
+          "w": 12,
+          "h": 4,
+          "name": "[KS] Server - Loss Rate",
+          "queries": [
+            {
+              "query": "SELECT (\"losses\" / \"packets\" * 100) AS \"known-sequence.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_knownsequence\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"losses\" / \"packets\" * 100) AS \"known-sequence.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_knownsequence\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/2/cells/1b24e9cc-56cd-470b-aa27-9d9b646f7929"
+          }
+        },
+        {
+          "i": "c17eaf98-4195-48e9-8f06-c9a5b714cb03",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 4,
+          "name": "[netem] client-domain-uplink - Loss Rate",
+          "queries": [
+            {
+              "query": "SELECT (\"client-domain-uplink.packet.dropped\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+              "queryConfig": {
+                "database": "",
+                "measurement": "",
+                "retentionPolicy": "",
+                "fields": [],
+                "tags": {},
+                "groupBy": {
+                  "time": "",
+                  "tags": []
+                },
+                "areTagsAccepted": false,
+                "rawText": "SELECT (\"client-domain-uplink.packet.dropped\" / \"client-domain-uplink.packet.count\" * 100) AS \"client-domain-uplink.drop-percent\" FROM \"telegraf\".\"autogen\".\"httpjson_netem\" WHERE time > :dashboardTime:",
+                "range": null
+              }
+            }
+          ],
+          "axes": {
+            "x": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            },
+            "y2": {
+              "bounds": [],
+              "label": "",
+              "prefix": "",
+              "suffix": "",
+              "base": "10",
+              "scale": "linear"
+            }
+          },
+          "type": "line",
+          "links": {
+            "self": "/chronograf/v1/dashboards/2/cells/c17eaf98-4195-48e9-8f06-c9a5b714cb03"
+          }
+        }
+      ],
+      "templates": [],
+      "name": "Known Sequence - Loss",
+      "links": {
+        "self": "/chronograf/v1/dashboards/2",
+        "cells": "/chronograf/v1/dashboards/2/cells",
+        "templates": "/chronograf/v1/dashboards/2/templates"
+      }
+    }
+  ]
+}

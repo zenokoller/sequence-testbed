@@ -37,6 +37,7 @@ services:
       data_collection:
     ports:
       - "8082:8080"
+      - "9092:9090"
     extra_hosts:
       - "client:${CLIENT_DOMAIN_CLIENT_ADDR}"
     volumes:
