@@ -34,7 +34,7 @@ RUN cd /go/src/github.com/thomas-fossati/netem-pub/netemd && go install
 # but not in the location tc expects to find them.
 RUN ln -s /usr/lib/tc /lib/tc
 
-# Install python 3
+# Install Python 3
 RUN apk add --no-cache python3-dev && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
@@ -42,3 +42,7 @@ RUN apk add --no-cache python3-dev && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
     if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     rm -r /root/.cache
+
+# Install common Python dependencies
+RUN pip install aiohttp
+RUN pip install PyYAML

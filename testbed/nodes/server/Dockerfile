@@ -8,7 +8,4 @@ ENV CLIENT_DOMAIN_CLIENT_ADDR 172.28.0.2
 # been configured
 COPY entrypoint.bash /root/
 
-# Other python packages
-RUN pip install aiohttp
-
 # The entrypoint for this container is defined in docker-compose.yml

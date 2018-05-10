@@ -33,21 +33,8 @@ router_interface_for_server_domain() {
   node_interface_for_domain router ${SERVER_DOMAIN_SUBNET}
 }
 
-expect_containers_are_running() {
-  echo ">>> Checking containers are running"
 
-  for s in client server router
-  do
-    x=$(docker-compose ps -q ${s})
-    if [ -z "${x}" ]
-    then
-      echo ">>> Node ${s} MUST be running (run 'make up' or 'make build-up')"
-      exit 1
-    fi
-  done
-}
-
-if [ $# != 1 ]
+if [ $# != 1 ] && [ $# != 2 ]
 then
   echo "Usage $0 <configuration file>"
   exit 1
@@ -56,12 +43,16 @@ fi
 readonly CONFIG="$1"
 
 # read links configuration from the supplied file and network configuration
-# from .env 
+# from .env
 . "${CONFIG}"
 . .env
 
-# containers must be up & running for the script to work
-expect_containers_are_running
+# containers must be up & running for the script to work, unless we already checked this
+if [ $# -lt 2 ] || [ $2 != "--nocheck" ]
+then
+    . $(dirname $0)/utils/check-containers.bash
+    expect_containers_are_running
+fi
 
 # map link names to the correct containers' interface
 readonly linkmap__CLIENT_DOMAIN_UPLINK_CONFIG="client $(client_interface_for_client_domain)"
