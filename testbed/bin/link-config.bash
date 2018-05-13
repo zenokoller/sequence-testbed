@@ -34,13 +34,22 @@ router_interface_for_server_domain() {
 }
 
 
-if [ $# != 1 ] && [ $# != 2 ]
+if [ $# = 0 ]
 then
-  echo "Usage $0 <configuration file>"
+  echo "Usage $0 -c <configuration file> [ -n ]"
   exit 1
 fi
 
-readonly CONFIG="$1"
+CONFIG=''
+NOCHECK='false'
+
+while getopts 'c:n' flag; do
+  case "${flag}" in
+    c) CONFIG="${OPTARG}" ;;
+    n) NOCHECK='true' ;;
+    *) error "Unexpected option ${flag}" ;;
+  esac
+done
 
 # read links configuration from the supplied file and network configuration
 # from .env
@@ -48,7 +57,9 @@ readonly CONFIG="$1"
 . .env
 
 # containers must be up & running for the script to work, unless we already checked this
-if [ $# -lt 2 ] || [ $2 != "--nocheck" ]
+
+
+if [ NOCHECK ]
 then
     . $(dirname $0)/utils/check-containers.bash
     expect_containers_are_running

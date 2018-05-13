@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 expect_containers_are_running() {
-  echo ">>> Checking containers are running"
+  echo ">>> Checking containers are running..."
 
   for s in client server router
   do
