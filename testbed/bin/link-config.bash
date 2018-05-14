@@ -41,12 +41,12 @@ then
 fi
 
 CONFIG=''
-NOCHECK='false'
+CHECK_CONTAINERS=true
 
 while getopts 'c:n' flag; do
   case "${flag}" in
     c) CONFIG="${OPTARG}" ;;
-    n) NOCHECK='true' ;;
+    n) CHECK_CONTAINERS=false ;;
     *) error "Unexpected option ${flag}" ;;
   esac
 done
@@ -57,9 +57,7 @@ done
 . .env
 
 # containers must be up & running for the script to work, unless we already checked this
-
-
-if [ NOCHECK ]
+if [ "${CHECK_CONTAINERS}" = true ]
 then
     . $(dirname $0)/utils/check-containers.bash
     expect_containers_are_running

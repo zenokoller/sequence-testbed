@@ -2,15 +2,6 @@
 
 set -eu
 
-# `run_experiment` runs a single experiment:
-# 
-# - Read config from -c flag, optional symbol_bits from -s
-# - Configure netem using file config/netem/$NETEM_config
-# - Start nodes where {CLIENT|ROUTER|SERVER}_ARGS is nonempty,
-#   node configuration given in separate config file
-# - Stop nodes after RUNNING_TIME
-# - Run EVALUATION_SCRIPT
-
 start_node() {
     local name=$1
     local args=$2
@@ -33,27 +24,18 @@ timestamp() {
 }
 
 run_experiment() {
-    local config=$1
-    local csv_path=$2
-    local symbol_bits=$3
+    # Starts nodes where {CLIENT|ROUTER|SERVER}_ARGS is nonempty, node configuration 
+    # taken from separate config file. 
+    # Stop nodes after RUNNING_TIME and run POST_RUN_SCRIPT.
+
+    local csv_path=$1
+    local symbol_bits=$2
 
     symbol_bits_arg=''
     if [ ! -z ${symbol_bits} ]
     then
         symbol_bits_arg="-s ${symbol_bits}"
     fi
-
-    # read configuration file
-    . "conf/experiment/${config}.conf"
-
-    # containers must be up & running for the script to work
-    . $(dirname $0)/utils/check-containers.bash
-    expect_containers_are_running
-
-
-    # configure netem (make this a function)
-    echo ">>> Configuring netem using ${NETEM_CONFIG}..."
-    OUTPUT=$(bin/link-config.bash -c conf/netem/${NETEM_CONFIG} -n)
 
     # start nodes
     START_TIME=$(timestamp)
@@ -68,12 +50,49 @@ run_experiment() {
     END_TIME=$(timestamp)
     echo ">>> All processes done."
 
-    if [ ! -z "${EVALUATION_SCRIPT}" ]
+    if [ ! -z "${POST_RUN_SCRIPT}" ]
     then
         EVAL_ARGS="${START_TIME}s ${END_TIME}s ${csv_path} ${symbol_bits}"
-        echo ">>> Running evaluation: ${EVALUATION_SCRIPT} ${EVAL_ARGS}"
-        OUTPUT=$(${EVALUATION_SCRIPT} ${EVAL_ARGS})
+        echo ">>> Running ${POST_RUN_SCRIPT} ${EVAL_ARGS}"
+        OUTPUT=$(${POST_RUN_SCRIPT} ${EVAL_ARGS})
     else
         echo ">>> No evaluation script given, stopping..."
     fi
 }
+
+if [ $# -ne 3 ]
+then
+  echo "Usage $0 <config name> <out dir> <run name>"
+  exit 1
+fi
+
+readonly CONFIG=$1
+readonly OUT_DIR=$2
+readonly NAME=$3
+
+#  Create file for writing results
+readonly RUN_ID="${NAME}-$(timestamp)"
+readonly CSV_PATH="${OUT_DIR}/${CONFIG}-${RUN_ID}.csv"
+echo ">>> Writing results to ${CSV_PATH}"
+touch "${CSV_PATH}"
+
+# read configuration file
+echo ">>> Using config ${CONFIG}"
+. "conf/experiment/${CONFIG}.conf"
+
+# containers must be up & running
+. $(dirname $0)/utils/check-containers.bash
+expect_containers_are_running
+
+for s in $SYMBOL_BITS
+do
+    for ((i=1; i<=$RUNS; i++));
+    do
+        echo ">>> Running experiment with -s ${s} (${i} of ${RUNS})..." 
+        run_experiment "${CSV_PATH}" "${s}"
+    done
+done
+
+PLOT_ARGS="${CSV_PATH} ${RUN_ID}"
+echo ">>> Plotting: ${PLOT_SCRIPT} ${PLOT_ARGS}"
+OUTPUT=$(${PLOT_SCRIPT} "${PLOT_ARGS}")
