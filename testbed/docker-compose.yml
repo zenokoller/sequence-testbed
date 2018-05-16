@@ -93,7 +93,7 @@ services:
     networks:
       data_collection:
     volumes:
-      - ./data/influxdb:/var/lib/influxdb
+      - /tmp/influxdb:/var/lib/influxdb
     ports:
       - "8086:8086"
 
