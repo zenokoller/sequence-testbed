@@ -11,7 +11,7 @@ start_node() {
     if [ ! -z "${!args}" ]
     then
         echo ">>> Starting $name"
-        timeout="timeout -sKILL ${RUNNING_TIME}s"
+        timeout="timeout -sINT ${RUNNING_TIME}s"
         cmd="${timeout} python ${entrypoint} ${!args} ${symbol_bits_arg}"
         docker-compose exec -T ${name} ${cmd} &
     else
