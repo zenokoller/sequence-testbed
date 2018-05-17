@@ -59,7 +59,7 @@ done
 # containers must be up & running for the script to work, unless we already checked this
 if [ "${CHECK_CONTAINERS}" = true ]
 then
-    . $(dirname $0)/utils/check-containers.bash
+    . bin/utils/check-containers.bash
     expect_containers_are_running
 fi
 

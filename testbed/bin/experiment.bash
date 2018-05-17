@@ -62,8 +62,8 @@ run_experiment() {
 
 if [ $# -ne 3 ]
 then
-  echo "Usage $0 <config name> <out dir> <run name>"
-  exit 1
+    echo "Usage $0 <config name> <out dir> <run name>"
+    exit 1
 fi
 
 readonly CONFIG=$1
