@@ -20,11 +20,11 @@ expect_containers_are_running
 
 for ((i=0; i<$REPEATS; i++));
 do
-    conf="conf/netem/${CONFIGS[$(($i % $#))]}.conf"
+    conf="conf/${CONFIGS[$(($i % $#))]}.conf"
     echo ">>> Applying ${conf}..."
     bin/link-config.bash -c "${conf}" -n
     sleep $INTERVAL
 done
 
 echo ">>> Done after ${REPEATS} config changes. Resetting links..."
-bin/link-reset.conf
+bin/link-reset.bash
