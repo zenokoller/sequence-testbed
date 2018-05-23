@@ -21,13 +21,13 @@ RUN apk add hping3 --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
 
 RUN update-ca-certificates
 
-RUN go get -u github.com/thomas-fossati/netem-pub/netem \
-              github.com/thomas-fossati/netem-pub/netemd \
+RUN go get -u github.com/kollerz/netem-pub/netem \
+              github.com/kollerz/netem-pub/netemd \
               github.com/spf13/viper \
               github.com/spf13/cobra
 
 # Compile and install netemd
-RUN cd /go/src/github.com/thomas-fossati/netem-pub/netemd && go install
+RUN cd /go/src/github.com/kollerz/netem-pub/netemd && go install
 
 
 # Manually fix traffic control distributions.  They are actually installed
