@@ -7,44 +7,48 @@ set -eu
 #
 # $1: node name
 # $2: domain network
+# $3: allocate pseudo-TTY
 node_interface_for_domain() {
   local node=$1
   local domain_network=$2
+  local tty=$3
 
-  docker-compose exec ${node} ip route get ${domain_network} \
+  docker exec ${tty} ${node} ip route get ${domain_network} \
     | head -1 \
     | awk '{print $4}'
 }
 
 # A bunch of handy aliases
 client_interface_for_client_domain() {
-  node_interface_for_domain client ${CLIENT_DOMAIN_SUBNET}
+  node_interface_for_domain client ${CLIENT_DOMAIN_SUBNET} $1
 }
 
 server_interface_for_server_domain() {
-  node_interface_for_domain server ${SERVER_DOMAIN_SUBNET}
+  node_interface_for_domain server ${SERVER_DOMAIN_SUBNET} $1
 }
 
 router_interface_for_client_domain() {
-  node_interface_for_domain router ${CLIENT_DOMAIN_SUBNET}
+  node_interface_for_domain router ${CLIENT_DOMAIN_SUBNET} $1
 }
 
 router_interface_for_server_domain() {
-  node_interface_for_domain router ${SERVER_DOMAIN_SUBNET}
+  node_interface_for_domain router ${SERVER_DOMAIN_SUBNET} $1
 }
 
 if [ $# = 0 ]
 then
-  echo "Usage $0 -c <configuration file> [ -n ]"
+  echo "Usage $0 -c <configuration file> [ -n ] [ -t ]"
   exit 1
 fi
 
 CONFIG=''
+TTY=''
 CHECK_CONTAINERS=true
 
-while getopts 'c:n' flag; do
+while getopts 'c:tn' flag; do
   case "${flag}" in
     c) CONFIG="${OPTARG}" ;;
+    t) TTY='-t' ;;
     n) CHECK_CONTAINERS=false ;;
     *) error "Unexpected option ${flag}" ;;
   esac
@@ -63,10 +67,10 @@ then
 fi
 
 # map link names to the correct containers' interface
-readonly linkmap__CLIENT_DOMAIN_UPLINK_CONFIG="client $(client_interface_for_client_domain)"
-readonly linkmap__SERVER_DOMAIN_DOWNLINK_CONFIG="server $(server_interface_for_server_domain)"
-readonly linkmap__CLIENT_DOMAIN_DOWNLINK_CONFIG="router $(router_interface_for_client_domain)"
-readonly linkmap__SERVER_DOMAIN_UPLINK_CONFIG="router $(router_interface_for_server_domain)"
+readonly linkmap__CLIENT_DOMAIN_UPLINK_CONFIG="client $(client_interface_for_client_domain $TTY)"
+readonly linkmap__SERVER_DOMAIN_DOWNLINK_CONFIG="server $(server_interface_for_server_domain $TTY)"
+readonly linkmap__CLIENT_DOMAIN_DOWNLINK_CONFIG="router $(router_interface_for_client_domain $TTY)"
+readonly linkmap__SERVER_DOMAIN_UPLINK_CONFIG="router $(router_interface_for_server_domain $TTY)"
 
 
 # apply configuration
@@ -82,14 +86,14 @@ do
   # Drop previous configuration (if any)
   echo ">>> [${vars[0]}:${vars[1]}] reset qdisc"
   reset_cmd="tc qdisc del dev ${vars[1]} root"
-  docker-compose exec ${vars[0]} ${reset_cmd} || true
+  docker exec ${TTY} ${vars[0]} ${reset_cmd} || true
 
   if [ ! -z "${!k}" ]
   then
     # Apply new configuration
     echo ">>> [${vars[0]}:${vars[1]}] apply rule => ${!k}"
     apply_cmd="tc qdisc add dev ${vars[1]} root netem ${!k}"
-    docker-compose exec ${vars[0]} ${apply_cmd}
+    docker exec ${TTY} ${vars[0]} ${apply_cmd}
   else
     echo ">>> Skipping empty $k"
   fi
