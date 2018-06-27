@@ -8,4 +8,7 @@ ENV CLIENT_DOMAIN_CLIENT_ADDR 172.28.0.2
 # been configured
 COPY entrypoint.bash /root/
 
+# Install numpy
+RUN apk --no-cache add py-numpy
+
 # The entrypoint for this container is defined in docker-compose.yml
